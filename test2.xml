@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+<students>
+	<student>
+		<name>정재원</name>
+		<age>35</age>
+	</student>
+	<student>
+		<name>송지희</name>
+		<age>37</age>
+	</student>
+	<student>
+		<name>문대인</name>
+		<age>28</age>
+	</student>
+	<student>
+		<name>이종찬</name>
+		<age>30</age>
+	</student>
+</students>

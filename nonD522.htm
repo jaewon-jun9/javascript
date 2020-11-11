@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "" ""><HTML><HEAD><META content="IE=11.0000" 
+http-equiv="X-UA-Compatible">
+     
+<META http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<STYLE>
+        * { margin:0px; padding:0px; }
+        /* Animation Canvas */
+        .animation_canvas  {
+            overflow:hidden;
+            position:relative;           
+            width:600px; height:400px;
+        }
+    
+        /* Slider Panel */
+        .slider_panel { width:3000px; position:relative;}
+        .slider_image { float:left; width:600px; height:400px; }
+    
+        /* Slider Text Panel */
+        .slider_text_panel { position:absolute; top:200px; left:50px;  }
+        .slider_text { position:absolute; width:250px; height:150px; color:white;}
+    
+        /* Control Panel */
+        .control_panel  {
+            position:absolute; top:380px; 
+            left:270px; height:13px; 
+            overflow:hidden; 
+        }
+
+        .control_button {
+            width:12px; height:46px;
+            position:relative; 
+    
+            float:left; cursor:pointer;  
+            background:url('point_button.png');
+        }
+        .control_button:hover { top:-16px; }
+        .control_button.active { top:-31px; }
+    </STYLE>
+     
+<SCRIPT src="nonD522_files/jquery-1.10.2.js"></SCRIPT>
+     
+<SCRIPT>
+        $(document).ready(function () {
+            // &#65533;뒳&#65533;씪&#65533;씠&#65533;뜑瑜&#65533; &#65533;?吏곸뿬二쇰뒗 &#65533;븿&#65533;닔
+            function moveSlider(index) {
+                // &#65533;뒳&#65533;씪&#65533;씠&#65533;뜑瑜&#65533; &#65533;씠&#65533;룞&#65533;빀&#65533;땲&#65533;떎.
+                var willMoveLeft = -(index * 600);
+                $('.slider_panel').animate({ left: willMoveLeft }, 'slow');
+
+                // control_button&#65533;뿉 active&#65533;겢&#65533;옒&#65533;뒪瑜&#65533; 遺&#65533;&#65533;뿬/&#65533;젣嫄고빀&#65533;땲&#65533;떎.
+                $('.control_button[data-index=' + index + ']').addClass('active');
+                $('.control_button[data-index!=' + index + ']').removeClass('active');
+
+                // 湲&#65533;&#65533;옄瑜&#65533; &#65533;씠&#65533;룞&#65533;빀&#65533;땲&#65533;떎.
+                $('.slider_text[data-index=' + index + ']').show().animate({
+                    left: 0
+                }, 'slow');
+                $('.slider_text[data-index!=' + index + ']').hide('slow', function () {
+                    $(this).css('left', -300);
+                });
+            }//
+
+            // 珥덇린 &#65533;뀓&#65533;뒪&#65533;듃 &#65533;쐞移&#65533; 吏&#65533;&#65533;젙 諛&#65533; data-index &#65533;븷&#65533;떦
+            $('.slider_text').css('left', -300).each(function (index) {
+                $(this).attr('data-index', index);
+            });
+
+            // 而⑦듃濡&#65533; 踰꾪듉&#65533;쓽 &#65533;겢由&#65533; &#65533;빖&#65533;뱾&#65533;윭 吏&#65533;&#65533;젙 諛&#65533; data-index &#65533;븷&#65533;떦
+            $('.control_button').each(function (index) {
+                $(this).attr('data-index', index);
+            }).click(function () {
+                var index = $(this).attr('data-index');
+                moveSlider(index);
+            });
+
+            // 珥덇린 &#65533;뒳&#65533;씪&#65533;씠&#65533;뜑 &#65533;쐞移&#65533; 吏&#65533;&#65533;젙
+            var randomNumber = Math.round(Math.random() * 5);
+            moveSlider(randomNumber);
+        });
+    </SCRIPT>
+ 
+<META name="GENERATOR" content="MSHTML 11.00.10570.1001"></HEAD> 
+<BODY>
+<H1>Test Header</H1>
+<DIV class="animation_canvas">
+<DIV class="slider_panel"><IMG class="slider_image" src="">             <IMG 
+class="slider_image" src="">             <IMG class="slider_image" src="">       
+      <IMG class="slider_image" src="">             <IMG class="slider_image" 
+src="">         </DIV>
+<DIV class="slider_text_panel">
+<DIV class="slider_text">
+<H1>Lorem ipsum</H1>
+<P>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</P></DIV>
+<DIV class="slider_text">
+<H1>Nulla eget</H1>
+<P>Nulla eget sapien mauris, ornare elementum elit.</P></DIV>
+<DIV class="slider_text">
+<H1>Quisque eleifend</H1>
+<P>Quisque eleifend augue nec lacus lobortis porta.</P></DIV>
+<DIV class="slider_text">
+<H1>Donec</H1>
+<P>Donec a ligula lectus, eu iaculis justo.</P></DIV>
+<DIV class="slider_text">
+<H1>Vivamus scelerisque</H1>
+<P>Vivamus scelerisque mauris id nunc dictum sit amet.</P></DIV></DIV>
+<DIV class="control_panel">
+<DIV class="control_button"></DIV>
+<DIV class="control_button"></DIV>
+<DIV class="control_button"></DIV>
+<DIV class="control_button"></DIV>
+<DIV class="control_button"></DIV></DIV></DIV>
+<H1>Test Footer</H1></BODY></HTML>

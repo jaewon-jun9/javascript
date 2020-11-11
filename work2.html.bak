@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <script>
+	function display(name,city,age){
+		for(arg in arguments){
+			document.write("<h1>arg:"+arguments[arg]);
+
+		}
+		window.document.write("<h1>이름:"+name+"<br>주소:"+city+"</h1>");
+		
+	}
+	//호출부
+	display("홍길동","서울시");
+
+  </script>
+  <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Document</title>
+ </head>
+ <body>
+   text
+<ul>
+<li>1</li>
+<li>2</li>
+</ul>
+ </body>
+</html>
