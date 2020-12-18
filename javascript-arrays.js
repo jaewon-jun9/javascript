@@ -1,3 +1,5 @@
+//https://codingnuri.com/javascript-tutorial/javascript-arrays.html 자바스크립트 
+
 //배열은 Array() 생성자 함수를 이용해 생성할 수 있다. 다음 예제를 보자.
 let array1 = new Array();
 array1[0] = "Hello";
