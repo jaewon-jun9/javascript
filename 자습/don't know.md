@@ -6,6 +6,6 @@
 
 [html - Customizing Increment Arrows on Input of Type Number Using CSS - Stack Overflow](https://stackoverflow.com/questions/45396280/customizing-increment-arrows-on-input-of-type-number-using-css)
 
-![numberinput](/img/numberinput.png)
+![numberinput](./img/numberinput.png)
 
 [css - How can I make button minus and plus on the bootstrap vue? - Stack Overflow](https://stackoverflow.com/questions/52658814/how-can-i-make-button-minus-and-plus-on-the-bootstrap-vue/52659263)
