@@ -9,3 +9,7 @@
 ![numberinput](./img/numberinput.png)
 
 [css - How can I make button minus and plus on the bootstrap vue? - Stack Overflow](https://stackoverflow.com/questions/52658814/how-can-i-make-button-minus-and-plus-on-the-bootstrap-vue/52659263)
+
+tui 그리드 내부에서 구현할 경우 포메터로 모양은 구형가능하나 뷰가 작동하지 않음
+
+커스텀 렌더러이용으로 방향선회
