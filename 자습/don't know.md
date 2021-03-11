@@ -13,3 +13,13 @@
 tui 그리드 내부에서 구현할 경우 포메터로 모양은 구형가능하나 뷰가 작동하지 않음
 
 커스텀 렌더러이용으로 방향선회
+
+
+
+
+
+셀렉트 메뉴 옵션 편집
+
+[javascript - Collapse / expand optgroup using select2 - Stack Overflow](https://stackoverflow.com/questions/52156973/collapse-expand-optgroup-using-select2)
+
+[Styling multiple selection menu control option groups (optgroup elements) with CSS | 456 Berea Street](https://www.456bereastreet.com/lab/styling-form-controls-revisited/select-multiple-optgroup/)
