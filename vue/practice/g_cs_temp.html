@@ -1,0 +1,1208 @@
+<?php require_once "g_inc/script/component/g_tuigrid_inner.html" ?>
+
+<script src="node_modules/vue2-dropzone/dist/vue2Dropzone.js"></script> <!-- vue2Dropzone -->
+<link rel="stylesheet" href="node_modules/vue2-dropzone/dist/vue2Dropzone.min.css" />
+
+<div id="app" style='background-color:#F2F2F2; margin: 0 10px 10px 0'>
+    <!-- for input validation -->
+    <validation-observer v-slot="{ handleSubmit }">
+        <form @submit.prevent="handleSubmit(onSubmit)">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="pageTitle" style="margin-left:30px">CS test</div>
+                    </div>
+                    <div class="col-sm">
+                        <button type="submit" class="btn btn-primary btn-sm addButton common_save_btn">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class='filtered-container-box'>
+                <div>
+                    <div style="margin-left:30px; padding:0">
+                        <div class="row" style="margin:0px; padding:0; ">
+                            <div style="margin:60px 0px 30px 0px; padding:0 ">
+                                <div style="margin:0px; padding:0 ">
+                                    <table border="1" bordercolor="#d1d3e2" style="width:180px; height:690px; color:black">
+                                        <tr align="right">
+                                            <td>
+                                                <table style="height:200px;">
+                                                    <tr valign="top">
+                                                        <td>
+                                                            <div v-on:click="form_data.cs_count++"
+                                                                v-show="form_data.cs_count==1"
+                                                                style="margin-right: 4px;"><img
+                                                                    src='/img/g_img/plus.png'><br>
+                                                                <!-- <img src='/img/g_img/minus.png'> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <center>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(0)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[0]==0">
+                                                                    01 <img src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(1)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[1]==0">
+                                                                    02 <img src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;">
+                                                    </table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(2)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[2]==0">03 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(3)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[3]==0">04 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;"></table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(4)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[4]==0">05 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(5)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[5]==0">06 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;"></table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(6)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[6]==0">07 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(7)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[7]==0">08 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;"></table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:140px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(8)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[8]==0">09 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:80px;"></table>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        <tr style="height:5px;">
+                                            <td></td>
+                                        </tr>
+                                        <tr style="height:20px;">
+                                            <td></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <!-- cs 2nd -->
+                            <div style="margin:60px 0px 30px 0px; padding:0 " v-show="form_data.cs_count==2">
+                                <div style="margin:0px; padding:0 ">
+                                    <table border="1" bordercolor="#d1d3e2" style="width:180px; height:690px; color:black">
+                                        <tr align="right">
+                                            <td>
+                                                <table border="0" style="height:200px;">
+                                                    <tr valign="top">
+                                                        <td>
+                                                            <div style="margin-right: 4px;">
+                                                                <!-- <img src='/img/g_img/plus.png'> -->
+                                                                <br>
+                                                                <img v-on:click="form_data.cs_count--"
+                                                                    src='/img/g_img/minus.png'>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <center>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td style="width:73px;" v-on:click="tray_change(9)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[9]==0">10
+                                                                    <img src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(10)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[10]==0">11 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;">
+                                                    </table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(11)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[11]==0">12 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(12)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[12]==0">13 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;"></table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(13)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[13]==0">14 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(14)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[14]==0">15 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;"></table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:50px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(15)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[15]==0">16 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                            <td v-on:click="tray_change(16)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[16]==0">17 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:10px;"></table>
+                                                    <table border="1" bordercolor="#d1d3e2"
+                                                        style="width:150px; height:140px;">
+                                                        <tr align="center">
+                                                            <td v-on:click="tray_change(17)">
+                                                                <div>
+                                                                    <img src="/img/g_img/white_image.png"
+                                                                        style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;"
+                                                                        v-show="tray_status[17]==0">18 <img
+                                                                        src='/img/g_img/pencil.png'>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="height:80px;"></table>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        <tr style="height:5px;">
+                                            <td></td>
+                                        </tr>
+                                        <tr style="height:20px;">
+                                            <td></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="col-sm" style="padding-right:0px">
+                                <div class="container" style="width:600px; margin-left:33px; padding-right:0px">
+                                    <div style="height:14px"></div>
+
+                                    <!-- Name / Group -->
+                                    <div class="row galaxybox_input_row">
+                                        <div class="col-sm-6" style="width:250px;">
+                                            <span
+                                                class="galaxybox_input_title_span">{{$t('NewGalaxyBox.input_field2')}}</span>
+                                            <div style="height:13px"></div>
+                                            <validation-provider rules="required" v-slot="{ errors }">
+                                                <input class="form-control" v-model="form_data.name" :disabled='true'>
+                                                <span style="color:red; font-size:12px; font-weight: bold">
+                                                    {{ errors[0] }}</span>
+                                            </validation-provider>
+
+                                        </div>
+                                        <div class="col-sm-6" style="width:250px;">
+                                            <span
+                                                class="galaxybox_input_title_span">{{$t('NewGalaxyBox.input_field3')}}</span>
+                                            <div style="height:13px"></div>
+                                            <select class="form-control" v-model="form_data.group_id" :disabled='true'>
+                                                <option v-for="option in option_group" v-bind:value="option.group_id">
+                                                    {{ option.group_name }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div style="height:4px"></div>
+
+                                    <div style="height:10px"></div>
+                                    <!-- Manager -->
+                                    <div class="row galaxybox_input_row">
+                                        <div class="col-sm-12">
+                                            <span
+                                                class="galaxybox_input_title_span">{{$t('NewGalaxyBox.input_field4')}}</span>
+                                            <!-- name -->
+                                            <div class="row galaxybox_input_row"
+                                                style="padding:0px 0px 0px 0px; margin:0">
+                                                <div class="col-sm-6" style="padding:0px 12px 0 0; ">
+                                                    <span
+                                                        class="galaxybox_input_sub_title_span">{{$t('NewGalaxyBox.input_field41')}}</span>
+                                                    <div style="height:10px"></div>
+                                                    <input class="form-control" v-model="form_data.manager_name"
+                                                        :disabled='true'>
+                                                </div>
+                                                <!-- contact -->
+                                                <div class="col-sm-6 " style="padding:0 0 0 12px;">
+                                                    <span
+                                                        class="galaxybox_input_sub_title_span">{{$t('NewGalaxyBox.input_field42')}}</span>
+                                                    <div style="height:10px"></div>
+                                                    <input class="form-control" v-model="form_data.manager_tel"
+                                                        :disabled='true'>
+                                                </div>
+                                            </div>
+                                            <div style="height:10px"></div>
+                                            <!-- email -->
+                                            <div class="col-sm-12" style="padding:0;">
+                                                <span
+                                                    class="galaxybox_input_sub_title_span">{{$t('NewGalaxyBox.input_field43')}}</span>
+                                                <div style="height:10px"></div>
+                                                <input class="form-control" v-model="form_data.manager_email"
+                                                    :disabled='true'>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div v-show="form_data.tray_no>0">
+                                        <hr style="margin:20px 25px 15px 18px">
+                                        <div class="row galaxybox_input_row">
+                                            <div class="col-sm-6">
+                                                <span class="galaxybox_input_title_span">Tray no.</span>
+                                                <div style="height:5px"></div>
+                                                <validation-provider rules="required" v-slot="{ errors }">
+                                                    <input class="form-control" v-model="form_data.tray_no"
+                                                        :disabled='true'>
+                                                    <span style="color:red; font-size:12px; font-weight: bold">
+                                                        {{ errors[0] }}</span>
+                                                </validation-provider>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span class="galaxybox_input_title_span">Status</span>
+                                                <div style="height:5px"></div>
+                                                <select class="form-control" v-model="form_data.status_id"
+                                                    :disabled='true'>
+                                                    <option v-for="option in option_status" v-bind:value="option.id">
+                                                        {{ option.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row galaxybox_input_row">
+                                            <div class="col-sm-6">
+                                                <span class="galaxybox_input_title_span">Customer code</span>
+                                                <div style="height:5px"></div>
+                                                <validation-provider rules="required" v-slot="{ errors }">
+                                                    <input class="form-control" v-model="form_data.customer_code">
+                                                    <span style="color:red; font-size:12px; font-weight: bold">
+                                                        {{ errors[0] }}</span>
+                                                </validation-provider>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span class="galaxybox_input_title_span">Pass code</span>
+                                                <div style="height:5px"></div>
+                                                <validation-provider rules="required" v-slot="{ errors }">
+                                                    <input class="form-control" v-model="form_data.pass_code">
+                                                    <span style="color:red; font-size:12px; font-weight: bold">
+                                                        {{ errors[0] }}</span>
+                                                </validation-provider>
+                                            </div>
+                                        </div>
+                                        <div class="row galaxybox_input_row" style="margin-top:10px;padding-left:4px;">
+                                            <div class="col-sm-12" style="padding-right:8px">
+                                                <div class="container" style="padding:0">
+                                                    <div class="row" style="margin:0; padding:0">
+                                                        <span
+                                                            class="galaxybox_input_title_span">{{$t('NewGalaxyBox.input_field5')}}</span>
+                                                        <div style="height:10px"></div>
+                                                        <select class="form-control" v-model="form_data.product" v-on:change="g_product_change" style="margin-top:8px;">
+                                                            <option v-for="option in option_product"
+                                                                v-bind:value="option.barcode">
+                                                                {{ option.name }}, {{option.name2}}, {{option.color}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row galaxybox_input_row">
+                                            <div class="col-sm-6" style="margin-top:0px;">
+                                                <span class="product_input_title_span">Drop off date</span>
+                                                <div style="height:10px"></div>
+                                                <v-date-picker :mode='datePicker_mode'
+                                                    v-model='form_data.drop_off_date' />
+                                            </div>
+                                            <div class="col-sm-6" style="margin-top:0px;">
+                                                <span class="product_input_title_span">Pick up date</span>
+                                                <div style="height:10px"></div>
+                                                <v-date-picker :mode='datePicker_mode'
+                                                    v-model='form_data.pick_up_date' />
+                                            </div>
+                                            <div class="col-sm-12" style="margin-top:10px; padding-left:302px">
+                                                <span class="product_input_title_span">Pick expiry date</span>
+                                                <div style="height:10px"></div>
+                                                <v-date-picker :mode='datePicker_mode'
+                                                    v-model='form_data.pick_expiry_date' />
+                                            </div>
+                                        </div>
+
+                                        <div class="row galaxybox_input_row">
+                                            <div class="col-sm-12">
+                                                <span class="galaxybox_input_title_span">Package image</span>
+                                                <div class="row galaxybox_input_row"
+                                                    style="padding:0px 0px 0px 0px; margin:0">
+                                                    <div class="col-sm-6" style="padding:0px 12px 0 0; ">
+                                                        <div style="height:10px"></div>
+                                                        <vue-dropzone :options="dropzoneOptions"
+                                                            v-on:vdropzone-thumbnail="thumbnail"
+                                                            style="border-radius: 10px;"
+                                                            v-on:vdropzone-file-added="mainFileAdded"
+                                                            v-on:vdropzone-removed-file="mainFileRemoved"
+                                                            v-on:vdropzone-sending="dropzoneFileSending"
+                                                            v-on:vdropzone-complete="mainFileComplete"
+                                                            v-on:vdropzone-error="dZoneError">
+                                                        </vue-dropzone>
+                                                    </div>
+                                                    <div class="col-sm-6 " style="padding:0 0 0 12px;">
+                                                        <div style="height:10px"></div>
+                                                        <vue-dropzone :options="dropzoneOptions"
+                                                            v-on:vdropzone-thumbnail="thumbnail"
+                                                            style="border-radius: 10px;"
+                                                            v-on:vdropzone-file-added="mainFileAdded"
+                                                            v-on:vdropzone-removed-file="mainFileRemoved"
+                                                            v-on:vdropzone-sending="dropzoneFileSending"
+                                                            v-on:vdropzone-complete="mainFileComplete"
+                                                            v-on:vdropzone-error="dZoneError">
+                                                        </vue-dropzone>
+                                                    </div>
+                                                </div>
+                                                <div class="row galaxybox_input_row"
+                                                    style="padding:0px 0px 0px 0px; margin:0">
+                                                    <div class="col-sm-6" style="padding:0px 12px 0 0; ">
+                                                        <div style="height:10px"></div>
+                                                        <vue-dropzone :options="dropzoneOptions"
+                                                            v-on:vdropzone-thumbnail="thumbnail"
+                                                            style="border-radius: 10px;"
+                                                            v-on:vdropzone-file-added="mainFileAdded"
+                                                            v-on:vdropzone-removed-file="mainFileRemoved"
+                                                            v-on:vdropzone-sending="dropzoneFileSending"
+                                                            v-on:vdropzone-complete="mainFileComplete"
+                                                            v-on:vdropzone-error="dZoneError">
+                                                        </vue-dropzone>
+                                                    </div>
+                                                    <div class="col-sm-6 " style="padding:0 0 0 12px;">
+                                                        <div style="height:10px"></div>
+                                                        <vue-dropzone :options="dropzoneOptions"
+                                                            v-on:vdropzone-thumbnail="thumbnail"
+                                                            style="border-radius: 10px;"
+                                                            v-on:vdropzone-file-added="mainFileAdded"
+                                                            v-on:vdropzone-removed-file="mainFileRemoved"
+                                                            v-on:vdropzone-sending="dropzoneFileSending"
+                                                            v-on:vdropzone-complete="mainFileComplete"
+                                                            v-on:vdropzone-error="dZoneError">
+                                                        </vue-dropzone>
+                                                    </div>
+                                                </div>
+                                                <div class="row galaxybox_input_row"
+                                                    style="padding:0px 0px 0px 0px; margin:0">
+                                                    <div class="col-sm-6" style="padding:0px 12px 0 0; ">
+                                                        <div style="height:10px"></div>
+                                                        <vue-dropzone :options="dropzoneOptions"
+                                                            v-on:vdropzone-thumbnail="thumbnail"
+                                                            style="border-radius: 10px;"
+                                                            v-on:vdropzone-file-added="mainFileAdded"
+                                                            v-on:vdropzone-removed-file="mainFileRemoved"
+                                                            v-on:vdropzone-sending="dropzoneFileSending"
+                                                            v-on:vdropzone-complete="mainFileComplete"
+                                                            v-on:vdropzone-error="dZoneError">
+                                                        </vue-dropzone>
+                                                    </div>
+                                                    <div class="col-sm-6 " style="padding:0 0 0 12px;">
+                                                        <div style="height:10px"></div>
+                                                        <vue-dropzone :options="dropzoneOptions"
+                                                            v-on:vdropzone-thumbnail="thumbnail"
+                                                            style="border-radius: 10px;"
+                                                            v-on:vdropzone-file-added="mainFileAdded"
+                                                            v-on:vdropzone-removed-file="mainFileRemoved"
+                                                            v-on:vdropzone-sending="dropzoneFileSending"
+                                                            v-on:vdropzone-complete="mainFileComplete"
+                                                            v-on:vdropzone-error="dZoneError">
+                                                        </vue-dropzone>
+                                                    </div>
+                                                </div>
+                                                <div style="height:10px"></div>
+                                            </div>
+                                        </div>
+
+                                        <div style="height:10px"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm" style="padding-left:0px">
+                                <div v-show="form_data.tray_no>0">
+                                    <div class="container"
+                                        style="width:400px; margin-left:0px; margin-right:0px; padding-right:0px;">
+                                        <div style="height:14px"></div>
+                                        <div style="height:318px"></div>
+                                        <div class="row galaxybox_input_row">
+                                            <div class="col-sm-11" style="padding: 0;">
+                                                <span class="galaxybox_input_title_span">Barcode</span>
+                                                <div style="height:6px"></div>
+                                                <validation-provider rules="required" v-slot="{ errors }">
+                                                    <div class="input-group">
+                                                        <input class="form-control" v-model="form_data.barcode"
+                                                            style="border-radius: 5px; width: 105px;">
+                                                        <button type="button" class="btn addButton"
+                                                            style="margin: 0; width:120px;background-color: #1428A0; color: white; margin-left:7px;">Generator</button>
+                                                    </div>
+                                                    <span style="color:red; font-size:12px; font-weight: bold">
+                                                        {{ errors[0] }}</span>
+                                                </validation-provider>
+                                            </div>
+                                            <div style="height:155px"></div>
+                                            <div class="col-sm-7" style="padding: 0;">
+                                                <span class="galaxybox_input_title_span">Brand</span>
+                                                <div style="height:6px"></div>
+                                                <select class="form-control" v-model="form_data.brand_id">
+                                                    <option v-for="option in option_brand" v-bind:value="option.id">
+                                                        {{ option.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div style="height:85px"></div>
+                                            <div class="col-sm-7" style="padding: 0;">
+                                                <span class="galaxybox_input_title_span">Category</span>
+                                                <div style="height:6px"></div>
+                                                <select class="form-control" v-model="form_data.category_id">
+                                                    <option v-for="option in option_category" v-bind:value="option.id">
+                                                        {{ option.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- <cs-tray tray_num="01" v-bind:tray_no="0"></cs-tray> -->
+                    </div>
+                </div>
+            </div>
+</div>
+</form>
+</validation-observer>
+</div>
+<script type="text/x-template" id="cs-tray">
+    <div>
+    <img src="/img/g_img/white_image.png"
+    style="opacity: 0.9; position: absolute; border: 0px; width: 45px; height: 35px;">
+    {{ tray_num }}<img src="/img/g_img/pencil.png">
+    </div>
+</script>
+<script>
+var cs_tray = {
+    props: ['tray_num', 'tray_no'],
+    template: "#cs-tray",
+};
+var d_id = "";
+
+$(document).ready(function() {
+    //$('#exampleModalCenter').modal('show');
+    $('#exampleModalCenter').on('shown.bs.modal', function(e) {
+        //alert("shown.bs.modal");
+        //app.displayAllProductImages2(d_id);
+    });
+
+    $('#exampleModalCenter').on('shown.bs.modal', function(e) {
+        //alert("shown.bs.modal");
+        //app.displayAllProductImages2(d_id);
+    });
+
+    $('#exampleModalCenter').on('hidden.bs.modal', function(e) {
+        location.href = 'index.html?mcode=d&mid=3';
+    })
+
+
+});
+
+
+
+/// valication RuleSet
+VeeValidate.extend('digitsOnly', (value) => {
+    var regexp = /^[0-9]*$/;
+    if (!regexp.test(value) === false) {
+        return true;
+    }
+    return i18n.t('validations.digitsOnly', '');
+});
+VeeValidate.extend('required', {
+    validate(value) {
+        return {
+            required: true,
+            valid: ['', null, undefined].indexOf(value) === -1
+        };
+    },
+    computesRequired: true,
+    message: (_, values) => i18n.t('validations.required', values)
+});
+VeeValidate.extend('dupCheck', (value) => {
+    if (vm.$data.dupFlag == true) {
+        return true;
+    }
+    return i18n.t('validations.dupCheck', '');
+});
+
+// Register the component globally.
+Vue.component('validation-provider', VeeValidate.ValidationProvider);
+Vue.component("validation-observer", VeeValidate.ValidationObserver);
+Vue.component('vue-dropzone', vue2Dropzone); // file upload
+Vue.component('localize', VeeValidate);
+Vue.component('cs-tray',cs_tray);
+
+
+/*var app = new Vue({
+    el: '#mainSearch',
+    data() {
+        return {
+            mainSearchKey: '',
+        }
+    },
+    methods: {
+        doSearch(inSearchKey) {
+            alert(inSearchKey);
+        }
+    }
+});*/
+
+// var getCookie = function(name) {
+//     var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+//     return value ? value[2] : null;
+// };
+
+var previous_td_target = '';
+
+var _skey = "";
+var readUrl = api_base_url + '/Analytics/getSalesInfoForDeviceSlot/' + _skey;
+
+var dataSource = {
+    withCredentials: false,
+    initialRequest: false,
+    headers: {
+        'Authorization': enc_header
+    },
+    api: {
+        readData: {
+            url: () => readUrl,
+            method: 'GET',
+            initParam: {}
+        }
+    }
+};
+///////////////////////////////////////////////////////////////////////
+
+var router = new VueRouter({
+    mode: 'history',
+    routes: []
+});
+
+
+var app = new Vue({
+    el: '#app',
+    i18n,
+    router, // get Parameter 처리
+    data() {
+        return {
+            option_g_manager: [],
+            column_str: '',
+            form_data: {
+                cs_count: 1,
+                name: 'CStest',
+                group_id: '',
+                manager_id: '',
+                manager_name: '',
+                manager_tel: '',
+                manager_email: '',
+                tray_no: '',
+                status_id: '',
+                barcode: '',
+                customer_code: '',
+                pass_code: '',
+                product: '',
+                drop_off_date: '',
+                pick_up_date: '',
+                pick_expiry_date: '',
+                category_id: '',
+                brand_id: '',
+            },
+            tray_data: [ //test
+                    {
+                        id: 1,
+                        tray_no: "01",
+                        status_id: 0,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: 'kr_11110118',
+                        drop_off_date: '2021/04/03',
+                        pick_up_date: '1609491366',
+                        pick_expiry_date: '1609491366',
+                        category_id: '1',
+                        brand_id: '1'
+                    },
+                    {
+                        id: 2,
+                        tray_no: "02",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: 'kr_11110125',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '1',
+                        brand_id: '1'
+                    },
+                    {
+                        id: 3,
+                        tray_no: "03",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: 'kr_11110231',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '2',
+                        brand_id: '1'
+                    },
+                    {
+                        id: 4,
+                        tray_no: "04",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: 'kr_11110316',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '6',
+                        brand_id: '1'
+                    },
+                    {
+                        id: 5,
+                        tray_no: "05",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: '',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '',
+                        brand_id: ''
+                    },
+                    {
+                        id: 6,
+                        tray_no: "06",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: '',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '',
+                        brand_id: ''
+                    },
+                    {
+                        id: 7,
+                        tray_no: "06",
+                        status_id: 0,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: '',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '',
+                        brand_id: ''
+                    },
+                    {
+                        id: 8,
+                        tray_no: "07",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: '',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '',
+                        brand_id: ''
+                    },
+                    {
+                        id: 9,
+                        tray_no: "08",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: '',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '',
+                        brand_id: ''
+                    },
+                    {
+                        id: 10,
+                        tray_no: "09",
+                        status_id: 1,
+                        barcode: '',
+                        customer_code: '',
+                        pass_code: '',
+                        product: 'kr_11110316',
+                        drop_off_date: '',
+                        pick_up_date: '',
+                        pick_expiry_date: '',
+                        category_id: '6',
+                        brand_id: '1'
+                    }
+            
+            ],
+            tray_status: [],
+            option_category: [],
+            option_brand: [],
+            option_type: [],
+            option_product: [],
+            option_group: [],
+            option_status: [ //test
+                {
+                    id: 0,
+                    name: "Empty"
+                },
+                {
+                    id: 1,
+                    name: "Full"
+                },
+                {
+                    id: 2,
+                    name: "Canceled"
+                }
+            ],
+            option_store: [],
+            slot_info: [],
+
+
+            /// dropzone options
+            dropzoneOptions: { /// file upload 용 설정
+                url: './pages/act/fileupload.php',
+                acceptedFiles: '.jpeg,.jpg,.png,.avi,.mp4,.JPEG,.JPG,.PNG,.AVI,.MP4',
+                thumbnailWidth: 500,
+                thumbnailHeight: 200,
+                previewTemplate: this.template(),
+                maxFilesize: 5000000000,
+                autoProcessQueue: false,
+                maxFiles: 1,
+                addRemoveLinks: true,
+                dictDefaultMessage: "<button type='button' class='btn btn-sm grid_save_btn' style='margin-bottom: 0px; border-radius: 15px;'>Upload</button><br>You may upload JEPG files",
+            }
+
+        }
+    },
+    methods: {
+        init() {
+            
+            this.getCategoryList();
+            this.getBrandList();
+            this.getGmanagerList();
+            this.getGroupList();
+            this.getProductlist();
+            this.getTrayStatus();
+
+        },
+
+        onSubmit() {
+
+        },
+        // getDeviceData(inVar) {
+        //     axios.get('/Device/getData/' + inVar)
+        //         .then(response => {
+        //             console.log(response.status);
+        //             if (response.data.data.contents.length > 0) {
+        //                 this.setServerData(response.data.data.contents[0]);
+        //             }
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+
+        // setServerData(inVar) {
+        //     this.$data.form_data.type = inVar.type;
+        //     this.$data.form_data.manager_name = inVar.manager_name;
+        //     this.$data.form_data.manager_tel = inVar.manager_tel;
+        //     this.$data.form_data.manager_email = inVar.manager_email;
+        //     this.$data.form_data.group_id = inVar.group_id;
+        //     this.$data.form_data.name = inVar.name;
+        //     this.$data.form_data.id = inVar.id;
+        //     this.$data.form_data.model = inVar.model;
+        //     this.$data.form_data.serial_num = inVar.serial_num;
+        //     this.$data.form_data.approve_flag = inVar.approve_flag;
+        //     this.$data.form_data.address = inVar.address;
+
+        //     this.displayAllProductImages(inVar.id, this.$data.selected_column1, this.$data.selected_column2);
+        //     //this.getDeviceCategoryData(inVar.id);
+        // },
+
+        getGroupList() {
+            axios.get('/Group/search/__all/<?php echo $_SESSION["admID"] ?>')
+                .then(response => {
+                    this.$data.option_group = response.data.data.contents;
+                    this.$data.form_data.group_id = response.data.data.contents[0].group_id;
+                    ///// 서버 데이터 설정
+                    // d_id = this.$route.query.id;
+                    // this.getDeviceData(this.$route.query.id);
+                    // this.getStockInfo(this.$data.selected_column1, this.$data.selected_column2);
+                })
+                .catch(error => console.error(error))
+        },
+
+        getBrandList() {
+            axios.get('/Brand/search/__all')
+                .then(response => {
+                    this.$data.option_brand = response.data.data.contents;
+                    this.$data.form_data.brand_id = response.data.data.contents[0].id;
+                })
+                .catch(error => console.error(error))
+        },
+
+        getCategoryList() {
+            axios.get('/Category/search/__all')
+                .then(response => {
+                    this.$data.option_category = response.data.data.contents;
+                    this.$data.form_data.category_id = response.data.data.contents[0].id;
+                })
+                .catch(error => console.error(error))
+        },
+
+
+        getProductlist() {
+            axios.get('/Product/search/__all')
+                .then(response => {
+                    this.$data.option_product = response.data.data.contents;
+                })
+                .catch(error => console.error(error))
+        },
+
+        getGmanagerList() {
+            axios.get('/User/getManager/<?php echo $_SESSION["admID"] ?>')
+                .then(response => {
+                    this.$data.option_g_manager = response.data.data.contents;
+                    //test set num0
+                    this.$data.form_data.manager_name = this.$data.option_g_manager[0].name;
+                    this.$data.form_data.manager_tel = this.$data.option_g_manager[0].tel_1;
+                    this.$data.form_data.manager_email = this.$data.option_g_manager[0].email;
+
+                })
+                .catch(error => console.error(error))
+        },
+
+        tray_change(inVar) {
+            if(this.$data.tray_status[inVar]>0) {
+            this.$data.form_data.tray_no = this.$data.tray_data[inVar].tray_no;
+            this.$data.form_data.status_id = this.$data.tray_data[inVar].status_id;
+            this.$data.form_data.barcode = this.$data.tray_data[inVar].barcode;
+            this.$data.form_data.customer_code = this.$data.tray_data[inVar].customer_code;
+            this.$data.form_data.pass_code = this.$data.tray_data[inVar].pass_code;
+            this.$data.form_data.product = this.$data.tray_data[inVar].product;
+            this.$data.form_data.drop_off_date = this.$data.tray_data[inVar].drop_off_date;
+            this.$data.form_data.pick_up_date = this.$data.tray_data[inVar].pick_up_date;
+            this.$data.form_data.pick_expiry_date = this.$data.tray_data[inVar].pick_expiry_date;
+            this.$data.form_data.category_id = this.$data.tray_data[inVar].category_id;
+            this.$data.form_data.brand_id = this.$data.tray_data[inVar].brand_id;
+            } else {
+                this.$data.form_data.tray_no = ''
+            this.$data.form_data.status_id = ''
+            this.$data.form_data.barcode = ''
+            this.$data.form_data.customer_code = ''
+            this.$data.form_data.pass_code = ''
+            this.$data.form_data.product = ''
+            this.$data.form_data.drop_off_date = ''
+            this.$data.form_data.pick_up_date = ''
+            this.$data.form_data.pick_expiry_date = ''
+            this.$data.form_data.category_id = ''
+            this.$data.form_data.brand_id = ''
+            }
+        },
+
+        g_product_change(event) {
+                
+            this.$data.form_data.brand_id = this.$data.option_product[event.currentTarget.selectedIndex].brand_id;
+            this.$data.form_data.category_id = this.$data.option_product[event.currentTarget.selectedIndex].category_id;
+        
+        },
+
+        getTrayStatus() {
+            if (this.$data.tray_data.length>9) {
+                this.$data.form_data.cs_count=2;
+            }
+            for (var i = 0; i < this.$data.tray_data.length; i++) {
+                this.$data.tray_status[i] = this.$data.tray_data[i].status_id;
+                }
+        },
+
+        // getAlertStyle(item) {
+        //     if (item.alert_img.length > 1)
+        //         if (item.alert_img == "../img/g_img/trans_images.png")
+        //             return "opacity:1;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;width:46px; height:82px;";
+        //         else
+        //             return "opacity:0.5;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;width:46px; height:82px;";
+        //     else {
+        //         if (item.main == "../img/g_img/no_image_plus_alpha.png")
+        //             return "opacity:0;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;width:48px;height:84px";
+        //         else
+        //             return "opacity:0;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;";
+        //     }
+
+        // },
+
+
+
+
+        // list_item_clicked(inRow) {
+        //     this.$data.category_data.device_row = inRow.device_row;
+        //     this.$data.category_data.category_name = inRow.category_name;
+        //     this.$data.category_data.category_x = inRow.category_x;
+        //     this.$data.category_data.category_y = inRow.category_y;
+        //     this.$data.category_data.product_x = inRow.product_x;
+        //     this.$data.category_data.product_y = inRow.product_y;
+        //     this.$data.category_data.product_gap = inRow.product_gap;
+        //     this.$data.category_data.slot_num = inRow.slot_num;
+        // },
+
+
+
+        // onSlotClick(evt, inRow, inColumn) {
+        //     /*evt.currentTarget.className = "galaxybox_td_selected";
+        //     if ((previous_td_target != evt.currentTarget) && (previous_td_target != '')) {
+        //         if (previous_td_target.className.length > 0) previous_td_target.className = "galaxybox_td";
+        //     }
+        //     previous_td_target = evt.currentTarget;
+        //     this.$data.selected_column1 = inRow + 1;
+        //     this.$data.selected_column2 = inColumn + 1;
+        //     this.$data.form_data.product = this.$data.slot_info[inRow][inColumn];
+        //     this.getStockInfo(inRow+1,inColumn+1) ;*/
+        //     var temp_row = inRow * 1 + 1;
+        //     var temp_column = inColumn * 1 + 1;
+        //     location.href = "index.html?mcode=dr&mUrl=g_galaxy_box_click_temp.php&id=" + d_id + "&row=" + temp_row + "&column=" + temp_column;
+        // },
+
+        // getStockInfo(inRow, inColumn) {
+        //     axios.get('/Device/getStockInfo/' + d_id + '/' + inRow + '/' + inColumn)
+        //         .then(response => {
+        //             console.log(response.status);
+        //             ////////////////////////////////////////////////////////////////////////////////
+        //             this.$data.stock = response.data.data.contents[0].stock;
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+        // specDpHander() {
+        //     if (this.$data.category_flag) {
+        //         this.$data.category_flag = false;
+        //     } else {
+        //         this.$data.category_flag = true;
+        //     }
+        // },
+        ////// file form modify before upload
+        dropzoneFileSending(file, xhr, formData) {
+            if (file.name == this.$data.form_data.main_image) {
+                var tmpImageFileName = this.imageFileRename(file);
+                this.$data.form_data.main_image = tmpImageFileName;
+                formData.append('image_id', 'main');
+                formData.append('image_name', tmpImageFileName);
+            } else if (file.name == this.$data.form_data.information_image) {
+                var tmpImageFileName = this.imageFileRename(file);
+                this.$data.form_data.information_image = tmpImageFileName;
+                formData.append('image_id', 'information');
+                formData.append('image_name', tmpImageFileName);
+            } else if (file.name == this.$data.form_data.dispensing_video) {
+                var tmpImageFileName = this.imageFileRename(file);
+                this.$data.form_data.dispensing_video = tmpImageFileName;
+                formData.append('image_id', 'dispensing');
+                formData.append('image_name', tmpImageFileName);
+            }
+        },
+
+        template: function() {
+            return `<div class="dz-preview dz-file-preview">
+                            <div class="dz-image">
+                                <div data-dz-thumbnail-bg></div>
+                            </div>
+                            <div class="dz-details">
+                                <div class="dz-size"><span data-dz-size></span></div>
+                                <div class="dz-filename"><span data-dz-name></span></div>
+                            </div>
+                            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                            <div class="dz-success-mark"><i class="fa fa-check"></i></div>
+                            <div class="dz-error-mark"><i class="fa fa-close"></i></div>
+                        </div>
+                        `;
+        },
+
+        thumbnail: function(file, dataUrl) {
+            var j, len, ref, thumbnailElement;
+            if (file.previewElement) {
+                file.previewElement.classList.remove("dz-file-preview");
+                ref = file.previewElement.querySelectorAll("[data-dz-thumbnail-bg]");
+                for (j = 0, len = ref.length; j < len; j++) {
+                    thumbnailElement = ref[j];
+                    thumbnailElement.alt = file.name;
+                    thumbnailElement.style.backgroundImage = 'url("' + dataUrl + '")';
+                }
+                return setTimeout(((function(_this) {
+                    return function() {
+                        return file.previewElement.classList.add("dz-image-preview");
+                    };
+                })(this)), 1);
+            }
+        },
+        imageFileRename(file) {
+            var ext = "";
+            var fileName = file.name.split('.');
+            if (fileName.length > 1) ext = fileName[1];
+            tempFileName = Math.floor(new Date().getTime() / 1000) + '.' + ext;
+            return tempFileName;
+        }
+
+    },
+    created: function() {
+        this.init();
+    },
+
+    computed: {
+
+    },
+    mounted: function() {
+        parameters = this.$route.query;
+        //this.$data.form_data.column1 = parameters.row ;
+        //this.$data.form_data.column2 = parameters.column ;
+        // var str_arr = ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
+        // this.$data.selected_column1 = parameters.row;
+        // this.$data.selected_column2 = parameters.column;
+        // this.$data.column_str = str_arr[this.$data.selected_column1] + this.$data.selected_column2;
+        // this.getDeviceData(parameters.id);
+
+    }
+});
+</script>

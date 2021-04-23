@@ -1,0 +1,88 @@
+<?php require_once "g_inc/script/component/g_grid_with_edit.html" ?>
+
+
+
+<div id="app" style='background-color:#F2F2F2; margin: 0 60px 10px 40px'>
+
+    <div class="pageTitle">CS modules</div>
+    <button type="button" class="btn btn-primary btn-sm addButton" 
+        style="margin-top:-36px;background-color:rgb(20,40,160);width:150px;height:36px;font-family:SamsungOneKoreanOTF_700;font-size:18px"
+        v-on:click="goUrl('g_cs_module_add.php')">Add CS module</button>
+    
+    <div>
+        <!--<g-grid-with-title :in-var='options' :rtn_value="rtn_value" v-on:item_click_event="list_item_clicked" style="margin-top:20px"></g-grid-with-title>-->
+        <g-grid-with-title :in-var='options' ref="ckbox" :rtn_value="rtn_value" :btn_edit_txt="btn_edit_txt" 
+            v-on:item_check_event="list_item_checked" v-on:item_click_event="list_item_clicked" 
+            v-on:edit_click_event="list_edit_btn_click" v-on:delete_click_event="list_delete_btn_click" 
+            style="margin-top:20px;cursor: pointer;"></g-grid-with-title>
+    
+
+    
+
+</div>
+</div>
+
+
+
+<script>
+
+    Vue.component('localize', VeeValidate); /// 다국어 처리
+    
+    var app = new Vue({
+        el: '#app',
+        i18n,
+        data() {
+            return {
+                checkedItem: [],
+                rtn_value:'_Code',
+                options: [],
+                btn_edit_txt:'Edit CS module'
+            }
+        },
+        methods: {
+            list_item_checked: function(targetId, checkedFlag) { //g-grid-with-title
+                if (checkedFlag) {
+                    this.$data.checkedItem.push(targetId);
+                } else {
+                    this.$data.checkedItem.splice(this.checkedItem.indexOf(targetId), 1);
+                }
+            },
+
+            getCookie(name) {
+                var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+                return value ? value[2] : null;
+            },
+
+            getGroupData() {
+                axios.get('/CsBox/getCsListForCsMenu/__all/<?php echo $_SESSION['admID']?>/'+this.getCookie("sel_country"))
+                    .then(response => {
+                        this.$data.options = response.data.data.contents;
+                    })
+                    .catch(error => console.error(error))
+            },
+
+            goUrl: function(inVar) {
+                location.href = "index.html?&mid=2&mcode=dr&mUrl=" + inVar;
+            },
+            list_item_clicked(cs_id) {
+                //alert(group_id) ;
+                //this.goUrl("g_group_update.php&id="+group_id);
+                location.href = "index.html?mcode=dr&mUrl=g_cs_module_status.php&id="+cs_id.value;
+            },
+            list_edit_btn_click(cs_id) {
+                cs_id = this.$data.checkedItem[0] ;
+                this.goUrl("g_csbox_update.php&id="+cs_id);
+            },
+            list_delete_btn_click(group_id) {
+                //alert(store_id);
+            },
+
+        },
+        mounted() {
+
+        },
+        created() {
+            this.getGroupData();
+        }
+    });
+</script>

@@ -1,0 +1,514 @@
+<div id="app" style='background-color:#F2F2F2; margin: 0 10px 10px 0'>
+    <!-- for input validation -->
+    <validation-observer v-slot="{ handleSubmit }">
+        <form @submit.prevent="handleSubmit(onSubmit)">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="pageTitle" style="margin-left:30px">CS module add</div>
+                    </div>
+                    <div class="col-sm">
+                        <button type="submit" class="btn btn-primary btn-sm addButton common_save_btn">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class='filtered-container-box'>
+                <div>
+                    <div style="margin-left:14px; padding:0">
+                        <div class="row" style="margin:0px; padding:0; ">
+                            <div class="col-sm" style="padding-left:0px">
+                                <div class="container" style="width:600px; margin-left:0px; padding-left:0">
+                                    <div style="height:14px"></div>
+
+
+                                    <!-- Model , S/N -->
+                                    <div class="row galaxybox_input_row">
+                                        <div class="col-sm-12">
+                                            <div class="container" style="margin:0;padding:0">
+                                                <div class="row galaxybox_input_row" style="margin:0;">
+                                                    <!-- Model -->
+                                                    <div class="col-sm-6" style="margin:0;padding:0px 12px 0px 0px">
+                                                        <span class="galaxybox_input_title_span">Model</span>
+                                                        <div style="height:5px"></div>
+                                                        <input class="form-control" v-model="form_data.model">
+                                                    </div>
+                                                    <!-- S/N -->
+                                                    <div class="col-sm-6" style="margin:0;padding:0 0 0 10px">
+                                                        <span class="galaxybox_input_title_span">S/N</span>
+                                                        <div style="height:5px"></div>
+                                                        <input class="form-control" v-model="form_data.serial_num">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row galaxybox_input_row" style="margin:0;padding:4px">
+                                            
+                                                    <div class="col-sm-12" style="margin:0;padding:0">
+                                                        <div style="height:10px"></div>
+                                                        <button type="button"
+                                                            class="btn btn-primary btn-sm addButton common_save_btn"
+                                                            style="background-color:black; width:100%"
+                                                            >Request authorization</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row galaxybox_input_row" style="margin-top:10px;padding-left:4px;">
+                                        <div class="col-sm-12" style="padding-right:8px">
+                                            <div class="container" style="padding:0">
+                                                <div class="row" style="margin:0; padding:0">
+                                                    <span
+                                                        class="galaxybox_input_title_span">{{$t('NewGalaxyBox.input_field2')}}</span>
+                                                    <div style="height:13px"></div>
+
+                                                    <input class="form-control" v-model="form_data.name"
+                                                         style="margin-top:10px">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Name / Group -->
+                                    <div class="row galaxybox_input_row">
+                                            <div class="col-sm-6">
+                                                <span class="galaxybox_input_title_span">Device ID</span>
+                                                <div style="height:5px"></div>
+                                                <validation-provider rules="required" v-slot="{ errors }">
+                                                    <input class="form-control" v-model="form_data.device_id">
+                                                    <span style="color:red; font-size:12px; font-weight: bold">
+                                                        {{ errors[0] }}</span>
+                                                </validation-provider>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span class="galaxybox_input_title_span">CS count</span>
+                                                <div style="height:5px"></div>
+                                                <select class="form-control" v-model="form_data.cs_count">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    <div style="height:4px"></div>
+
+                                    <div style="height:10px"></div>
+ 
+                                            </div>
+                                            <div style="height:200px"></div>
+
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div style="height:200px"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div>
+                 
+                    </div>
+                </div>
+            </div>
+</div>
+</form>
+</validation-observer>
+</div>
+
+<script>
+
+var d_id = "";
+
+$(document).ready(function() {
+    //$('#exampleModalCenter').modal('show');
+    $('#exampleModalCenter').on('shown.bs.modal', function(e) {
+        //alert("shown.bs.modal");
+        //app.displayAllProductImages2(d_id);
+    });
+
+    $('#exampleModalCenter').on('shown.bs.modal', function(e) {
+        //alert("shown.bs.modal");
+        //app.displayAllProductImages2(d_id);
+    });
+
+    $('#exampleModalCenter').on('hidden.bs.modal', function(e) {
+        location.href = 'index.html?mcode=d&mid=3';
+    })
+
+
+});
+
+
+
+/// valication RuleSet
+VeeValidate.extend('digitsOnly', (value) => {
+    var regexp = /^[0-9]*$/;
+    if (!regexp.test(value) === false) {
+        return true;
+    }
+    return i18n.t('validations.digitsOnly', '');
+});
+VeeValidate.extend('required', {
+    validate(value) {
+        return {
+            required: true,
+            valid: ['', null, undefined].indexOf(value) === -1
+        };
+    },
+    computesRequired: true,
+    message: (_, values) => i18n.t('validations.required', values)
+});
+VeeValidate.extend('dupCheck', (value) => {
+    if (vm.$data.dupFlag == true) {
+        return true;
+    }
+    return i18n.t('validations.dupCheck', '');
+});
+
+// Register the component globally.
+Vue.component('validation-provider', VeeValidate.ValidationProvider);
+Vue.component("validation-observer", VeeValidate.ValidationObserver);
+Vue.component('localize', VeeValidate);
+
+
+
+/*var app = new Vue({
+    el: '#mainSearch',
+    data() {
+        return {
+            mainSearchKey: '',
+        }
+    },
+    methods: {
+        doSearch(inSearchKey) {
+            alert(inSearchKey);
+        }
+    }
+});*/
+
+// var getCookie = function(name) {
+//     var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+//     return value ? value[2] : null;
+// };
+
+var previous_td_target = '';
+
+var _skey = "";
+var readUrl = api_base_url + '/Analytics/getSalesInfoForDeviceSlot/' + _skey;
+
+var dataSource = {
+    withCredentials: false,
+    initialRequest: false,
+    headers: {
+        'Authorization': enc_header
+    },
+    api: {
+        readData: {
+            url: () => readUrl,
+            method: 'GET',
+            initParam: {}
+        }
+    }
+};
+///////////////////////////////////////////////////////////////////////
+
+var router = new VueRouter({
+    mode: 'history',
+    routes: []
+});
+
+
+var app = new Vue({
+    el: '#app',
+    i18n,
+    router, // get Parameter 처리
+    data() {
+        return {
+            form_data: {
+                model: 'model',
+                serial_num: 'serial num',
+                cs_count: 0,
+                name: 'Name',
+                group_id: '',
+                manager_id: '',
+                device_id: 'device id',
+            },
+          
+        }
+    },
+    methods: {
+        init() {
+
+            // this.getCategoryList();
+            // this.getBrandList();
+            // this.getGmanagerList();
+            // this.getGroupList();
+            // this.getProductlist();
+            // this.getTrayStatus();
+
+        },
+
+        onSubmit() {
+
+        },
+        // getDeviceData(inVar) {
+        //     axios.get('/Device/getData/' + inVar)
+        //         .then(response => {
+        //             console.log(response.status);
+        //             if (response.data.data.contents.length > 0) {
+        //                 this.setServerData(response.data.data.contents[0]);
+        //             }
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+
+        // setServerData(inVar) {
+        //     this.$data.form_data.type = inVar.type;
+        //     this.$data.form_data.manager_name = inVar.manager_name;
+        //     this.$data.form_data.manager_tel = inVar.manager_tel;
+        //     this.$data.form_data.manager_email = inVar.manager_email;
+        //     this.$data.form_data.group_id = inVar.group_id;
+        //     this.$data.form_data.name = inVar.name;
+        //     this.$data.form_data.id = inVar.id;
+        //     this.$data.form_data.model = inVar.model;
+        //     this.$data.form_data.serial_num = inVar.serial_num;
+        //     this.$data.form_data.approve_flag = inVar.approve_flag;
+        //     this.$data.form_data.address = inVar.address;
+
+        //     this.displayAllProductImages(inVar.id, this.$data.selected_column1, this.$data.selected_column2);
+        //     //this.getDeviceCategoryData(inVar.id);
+        // },
+
+        // getGroupList() {
+        //     axios.get('/Group/search/__all/<?php echo $_SESSION["admID"] ?>')
+        //         .then(response => {
+        //             this.$data.option_group = response.data.data.contents;
+        //             this.$data.form_data.group_id = response.data.data.contents[0].group_id;
+        //             ///// 서버 데이터 설정
+        //             // d_id = this.$route.query.id;
+        //             // this.getDeviceData(this.$route.query.id);
+        //             // this.getStockInfo(this.$data.selected_column1, this.$data.selected_column2);
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+        // getBrandList() {
+        //     axios.get('/Brand/search/__all')
+        //         .then(response => {
+        //             this.$data.option_brand = response.data.data.contents;
+        //             this.$data.form_data.brand_id = response.data.data.contents[0].id;
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+        // getCategoryList() {
+        //     axios.get('/Category/search/__all')
+        //         .then(response => {
+        //             this.$data.option_category = response.data.data.contents;
+        //             this.$data.form_data.category_id = response.data.data.contents[0].id;
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+
+        // getProductlist() {
+        //     axios.get('/Product/search/__all')
+        //         .then(response => {
+        //             this.$data.option_product = response.data.data.contents;
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+        // getGmanagerList() {
+        //     axios.get('/User/getManager/<?php echo $_SESSION["admID"] ?>')
+        //         .then(response => {
+        //             this.$data.option_g_manager = response.data.data.contents;
+        //             //test set num0
+        //             this.$data.form_data.manager_name = this.$data.option_g_manager[0].name;
+        //             this.$data.form_data.manager_tel = this.$data.option_g_manager[0].tel_1;
+        //             this.$data.form_data.manager_email = this.$data.option_g_manager[0].email;
+
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+        // tray_change(inVar) {
+        //     if (this.$data.tray_status[inVar] > 0) {
+        //         this.$data.form_data.tray_no = this.$data.tray_data[inVar].tray_no;
+        //         this.$data.form_data.status_id = this.$data.tray_data[inVar].status_id;
+        //         this.$data.form_data.barcode = this.$data.tray_data[inVar].barcode;
+        //         this.$data.form_data.customer_code = this.$data.tray_data[inVar].customer_code;
+        //         this.$data.form_data.pass_code = this.$data.tray_data[inVar].pass_code;
+        //         this.$data.form_data.product = this.$data.tray_data[inVar].product;
+        //         this.$data.form_data.drop_off_date = this.$data.tray_data[inVar].drop_off_date;
+        //         this.$data.form_data.pick_up_date = this.$data.tray_data[inVar].pick_up_date;
+        //         this.$data.form_data.pick_expiry_date = this.$data.tray_data[inVar].pick_expiry_date;
+        //         this.$data.form_data.category_id = this.$data.tray_data[inVar].category_id;
+        //         this.$data.form_data.brand_id = this.$data.tray_data[inVar].brand_id;
+        //     } else {
+        //         this.$data.form_data.tray_no = ''
+        //         this.$data.form_data.status_id = ''
+        //         this.$data.form_data.barcode = ''
+        //         this.$data.form_data.customer_code = ''
+        //         this.$data.form_data.pass_code = ''
+        //         this.$data.form_data.product = ''
+        //         this.$data.form_data.drop_off_date = ''
+        //         this.$data.form_data.pick_up_date = ''
+        //         this.$data.form_data.pick_expiry_date = ''
+        //         this.$data.form_data.category_id = ''
+        //         this.$data.form_data.brand_id = ''
+        //     }
+        // },
+
+        // g_product_change(event) {
+
+        //     this.$data.form_data.brand_id = this.$data.option_product[event.currentTarget.selectedIndex]
+        //         .brand_id;
+        //     this.$data.form_data.category_id = this.$data.option_product[event.currentTarget.selectedIndex]
+        //         .category_id;
+
+        // },
+
+        // getStyle(inVar) {
+        //     var rtn_value = 'background-color:white;';
+        //     if (inVar > 0 && inVar < 5) {
+        //         rtn_value = 'background-color:red;';
+        //     }
+        //     return rtn_value;
+        // },
+
+        // getAlertStyle(item) {
+        //     if (item.alert_img.length > 1)
+        //         if (item.alert_img == "../img/g_img/trans_images.png")
+        //             return "opacity:1;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;width:46px; height:82px;";
+        //         else
+        //             return "opacity:0.5;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;width:46px; height:82px;";
+        //     else {
+        //         if (item.main == "../img/g_img/no_image_plus_alpha.png")
+        //             return "opacity:0;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;width:48px;height:84px";
+        //         else
+        //             return "opacity:0;position: absolute; top: 0; left: 0px; z-index: 2; border: 0px solid #0ff;";
+        //     }
+
+        // },
+
+
+
+
+        // list_item_clicked(inRow) {
+        //     this.$data.category_data.device_row = inRow.device_row;
+        //     this.$data.category_data.category_name = inRow.category_name;
+        //     this.$data.category_data.category_x = inRow.category_x;
+        //     this.$data.category_data.category_y = inRow.category_y;
+        //     this.$data.category_data.product_x = inRow.product_x;
+        //     this.$data.category_data.product_y = inRow.product_y;
+        //     this.$data.category_data.product_gap = inRow.product_gap;
+        //     this.$data.category_data.slot_num = inRow.slot_num;
+        // },
+
+
+
+        // onSlotClick(evt, inRow, inColumn) {
+        //     /*evt.currentTarget.className = "galaxybox_td_selected";
+        //     if ((previous_td_target != evt.currentTarget) && (previous_td_target != '')) {
+        //         if (previous_td_target.className.length > 0) previous_td_target.className = "galaxybox_td";
+        //     }
+        //     previous_td_target = evt.currentTarget;
+        //     this.$data.selected_column1 = inRow + 1;
+        //     this.$data.selected_column2 = inColumn + 1;
+        //     this.$data.form_data.product = this.$data.slot_info[inRow][inColumn];
+        //     this.getStockInfo(inRow+1,inColumn+1) ;*/
+        //     var temp_row = inRow * 1 + 1;
+        //     var temp_column = inColumn * 1 + 1;
+        //     location.href = "index.html?mcode=dr&mUrl=g_galaxy_box_click_temp.php&id=" + d_id + "&row=" + temp_row + "&column=" + temp_column;
+        // },
+
+        // getStockInfo(inRow, inColumn) {
+        //     axios.get('/Device/getStockInfo/' + d_id + '/' + inRow + '/' + inColumn)
+        //         .then(response => {
+        //             console.log(response.status);
+        //             ////////////////////////////////////////////////////////////////////////////////
+        //             this.$data.stock = response.data.data.contents[0].stock;
+        //         })
+        //         .catch(error => console.error(error))
+        // },
+
+        // specDpHander() {
+        //     if (this.$data.category_flag) {
+        //         this.$data.category_flag = false;
+        //     } else {
+        //         this.$data.category_flag = true;
+        //     }
+        // },
+        ////// file form modify before upload
+    
+
+        // template: function() {
+        //     return `<div class="dz-preview dz-file-preview">
+        //                     <div class="dz-image">
+        //                         <div data-dz-thumbnail-bg></div>
+        //                     </div>
+        //                     <div class="dz-details">
+        //                         <div class="dz-size"><span data-dz-size></span></div>
+        //                         <div class="dz-filename"><span data-dz-name></span></div>
+        //                     </div>
+        //                     <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+        //                     <div class="dz-error-message"><span data-dz-errormessage></span></div>
+        //                     <div class="dz-success-mark"><i class="fa fa-check"></i></div>
+        //                     <div class="dz-error-mark"><i class="fa fa-close"></i></div>
+        //                 </div>
+        //                 `;
+        // },
+
+        // thumbnail: function(file, dataUrl) {
+        //     var j, len, ref, thumbnailElement;
+        //     if (file.previewElement) {
+        //         file.previewElement.classList.remove("dz-file-preview");
+        //         ref = file.previewElement.querySelectorAll("[data-dz-thumbnail-bg]");
+        //         for (j = 0, len = ref.length; j < len; j++) {
+        //             thumbnailElement = ref[j];
+        //             thumbnailElement.alt = file.name;
+        //             thumbnailElement.style.backgroundImage = 'url("' + dataUrl + '")';
+        //         }
+        //         return setTimeout(((function(_this) {
+        //             return function() {
+        //                 return file.previewElement.classList.add("dz-image-preview");
+        //             };
+        //         })(this)), 1);
+        //     }
+        // },
+        // imageFileRename(file) {
+        //     var ext = "";
+        //     var fileName = file.name.split('.');
+        //     if (fileName.length > 1) ext = fileName[1];
+        //     tempFileName = Math.floor(new Date().getTime() / 1000) + '.' + ext;
+        //     return tempFileName;
+        // }
+
+    },
+    created: function() {
+        this.init();
+    },
+
+    computed: {
+
+    },
+    mounted: function() {
+        parameters = this.$route.query;
+        //this.$data.form_data.column1 = parameters.row ;
+        //this.$data.form_data.column2 = parameters.column ;
+        // var str_arr = ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
+        // this.$data.selected_column1 = parameters.row;
+        // this.$data.selected_column2 = parameters.column;
+        // this.$data.column_str = str_arr[this.$data.selected_column1] + this.$data.selected_column2;
+        // this.getDeviceData(parameters.id);
+
+    }
+});
+</script>
