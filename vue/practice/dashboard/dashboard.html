@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="style.css">
+<!-- component template -->
+<script type="text/x-template" id="grid-template">
+    <table>
+      <thead>
+      <tr style="align: center; vertical-align: middle;" v-bind="title">{{title}}</tr>  
+        <tr>
+          <th v-for="key in columns"
+            @click="sortBy(key)"
+            :class="{ active: sortKey == key }">
+            {{ key | capitalize }}
+            <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="entry in filtereditems">
+          <td v-for="key in columns">
+            {{entry[key]}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </script>
+<div style="float: left;  padding-right: 10px;"><iframe src="https://www.google.com/maps/embed?" width="550" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <div id="log">
+    <!-- <form id="search">
+        Search <input name="query" v-model="searchQuery">
+      </form> -->
+    <grid :title="logtitle" :items="logData" :columns="logcols" :filter-key="searchQuery"  style="width: 550px;">
+    </grid>
+  </div>
+</div>
+<!-- status root element -->
+<div style="float: left;" id="status">
+  <!-- <form id="search">
+      Search <input name="query" v-model="searchQuery">
+    </form> -->
+  <grid :title="gridtitle" :items="gridData" :columns="gridColumns" :filter-key="searchQuery" style="width: 550; min-width: 500px;" >
+  </grid>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script>
+  // register the grid component
+  Vue.component('grid', {
+    template: '#grid-template',
+    props: {
+      title: String,
+      items: Array,
+      columns: Array,
+      filterKey: String
+    },
+    data: function () {
+      var sortOrders = {}
+      this.columns.forEach(function (key) {
+        sortOrders[key] = 1
+      })
+      return {
+        sortKey: '',
+        sortOrders: sortOrders
+      }
+    },
+    computed: {
+      filtereditems: function () {
+        var sortKey = this.sortKey
+        var filterKey = this.filterKey && this.filterKey.toLowerCase()
+        var order = this.sortOrders[sortKey] || 1
+        var items = this.items
+        if (filterKey) {
+          items = items.filter(function (row) {
+            return Object.keys(row).some(function (key) {
+              return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+            })
+          })
+        }
+        if (sortKey) {
+          items = items.slice().sort(function (a, b) {
+            a = a[sortKey]
+            b = b[sortKey]
+            return (a === b ? 0 : a > b ? 1 : -1) * order
+          })
+        }
+        return items
+      }
+    },
+    filters: {
+      capitalize: function (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+      }
+    },
+    methods: {
+      sortBy: function (key) {
+        this.sortKey = key
+        this.sortOrders[key] = this.sortOrders[key] * -1
+      }
+    }
+  })
+
+  // bootstrap the status
+  var status = new Vue({
+    el: '#status',
+    data: {
+      searchQuery: '',
+      gridtitle:"드론현황",
+      gridColumns: ['NO', '드론ID', '상태'],
+      gridData: [
+        { NO: 1, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 2, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 3, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+      ],
+    
+    }
+  });
+  var log = new Vue({
+    el: '#log',
+    data: {
+      searchQuery: '',
+      logtitle:"로그 HISTORY",
+      logcols: ['일자','파일명','드론ID'],
+      logData:[
+        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
+        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
+        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
+        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
+        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
+      ]
+    }
+  });
+</script>
