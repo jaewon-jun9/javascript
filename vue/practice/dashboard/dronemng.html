@@ -1,27 +1,19 @@
 <link rel="stylesheet" href="style.css">
 <!-- component template -->
 
-<div style="float: left;  padding: 10px;"><iframe src="https://www.google.com/maps/embed?" width="550" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-  <div style="padding-top: 10px;" id="log">
-    <!-- <form id="search">
-        Search <input name="query" v-model="searchQuery">
-      </form> -->
-    <grid :title="logtitle" :items="logData" :columns="logcols" :filter-key="searchQuery"  style="width: 550px;">
-    </grid>
-  </div>
-</div>
 <!-- status root element -->
-<div style="float: left; padding-top: 10px;" id="status">
+<div style="float: left; padding-top: 10px; width: 550; min-width: 500px;" id="status">
+  <div><h1>드론 목록</h1></div>
   <!-- <form id="search">
       Search <input name="query" v-model="searchQuery">
     </form> -->
   <grid :title="gridtitle" :items="gridData" :columns="gridColumns" :filter-key="searchQuery" style="width: 550; min-width: 500px;" >
   </grid>
+  <button style="float: right; margin-top: 10px;">드론등록</button>
 </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
-
 <script type="text/x-template" id="grid-template">
   <table>
     <thead>
@@ -45,6 +37,8 @@
     </tbody>
   </table>
 </script>
+
+
 
 <script>
   // register the grid component
@@ -108,41 +102,16 @@
     data: {
       searchQuery: '',
       gridtitle:"드론현황",
-      gridColumns: ['NO', '드론ID', '상태'],
+      gridColumns: ['NO', '드론ID', '상세정보','등록일'],
       gridData: [
-        { NO: 1, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 2, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 3, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
-        { NO: 4, 드론ID: 'STD-01001-01', 상태: '정상' },
+        { NO: 1, 드론ID: 'STD-01001-01', 상세정보: '등록드론',등록일:'2021-08-01' },
+        { NO: 1, 드론ID: 'STD-01001-01', 상세정보: '등록드론',등록일:'2021-08-01' },
+        { NO: 1, 드론ID: 'STD-01001-01', 상세정보: '등록드론',등록일:'2021-08-01' },
+        { NO: 1, 드론ID: 'STD-01001-01', 상세정보: '등록드론',등록일:'2021-08-01' },
+        { NO: 1, 드론ID: 'STD-01001-01', 상세정보: '등록드론',등록일:'2021-08-01' }
       ],
     
     }
   });
-  var log = new Vue({
-    el: '#log',
-    data: {
-      searchQuery: '',
-      logtitle:"로그 HISTORY",
-      logcols: ['일자','파일명','드론ID'],
-      logData:[
-        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
-        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
-        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
-        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
-        {일자: '2021-08-01',파일명:"울라불라.csv",드론ID:"1231234"},
-      ]
-    }
-  });
+  
 </script>
